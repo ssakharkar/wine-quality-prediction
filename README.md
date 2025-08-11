@@ -1,10 +1,10 @@
 # Wine Quality Prediction
 
 ## Background
-Portugal is one of the top 10 global wine exporters, having exported $1 billion of wine in 2024. This project aims to predict the quality of wine based on its chemical properties. To ensure that the consumer receives high quality wine, we use predictive machine learning models to derive the perceived quality expected from the wine, without having to open the bottle on delivery. These models could also be used during the winemaking process to assist in wine certification and quality assessment. Our algorithm and analysis are based on the article *"Modeling wine preferences by data mining from physicochemical properties"* authored by Cortez, Cerdeira, Almeida, Matos, and Reis (2009).
+Portugal is one of the top 10 global wine exporters, having exported $1 billion of wine in 2024. To ensure that the consumer receives high quality wine, we use predictive machine learning models to derive the perceived quality expected from the based on each wine's chemical properties. These models can be used during the winemaking process to assist in wine certification and quality assessment. Our modeling, data, and analysis are based on the paper *"Modeling wine preferences by data mining from physicochemical properties"* authored by Cortez, Cerdeira, Almeida, Matos, and Reis (2009).
 
 ## Data Set Information
-The data set was obtained from the UC Irvine Machine Learning Repository, but is also accesible through Cortez's website. The data was procured from May 2004 through February 2007 using samples of vinho verde wine, produced in the Minho region of Portugal, tested at the official vinho verde certification entity - The Viticulture Commission of the Vinho Verde Region (CVRCC). The chemical properties were recorded by a computerized system that manages laboratory analysis.
+The data set was obtained from the UC Irvine Machine Learning Repository, but is also accessible through Cortez's website. The data was procured from May 2004 through February 2007 using samples of vinho verde wine, produced in the Minho region of Portugal, and tested at the official vinho verde certification entity - The Viticulture Commission of the Vinho Verde Region (CVRCC). The chemical properties were recorded by a computerized system that manages laboratory analysis.
 
 The wine quality was evaluated by a minimum of three sensory assessors, which graded the wine from 0 to 10, with 0 being the lowest quality and 10 being the highest quality. The final score was given as the median of these grades.
 
@@ -46,7 +46,7 @@ As seen in Figure 3, most of the features within the white wine dataset also hav
 
 *Figure 3: Feature Distribution for White Wine*
 
-We also observed high correlation between some white wine features through the feature correlation matrix displayed in Figure 4. (e.g. negataive correlations between alcohol and density/residual sugar) This made us consider employing feature selection techniques to reduce multicollinearity between white wine predictors. Additionally, the three most correlated features to quality were alcohol, density, and chlorides.
+We also observed high correlation between some white wine features through the feature correlation matrix displayed in Figure 4. (e.g. negative correlations between alcohol and density/residual sugar) This made us consider employing feature selection techniques to reduce multicollinearity between white wine predictors. Additionally, the three most correlated features to quality were alcohol, density, and chlorides.
 
 ![Figure 4: Correlation Matrix of White Wine Features](./outputs/EDA/white%20wine%20correlation%20matrix.png)
 
@@ -98,7 +98,7 @@ Lastly, we evaluated all models using macro precision to assess model performanc
 
 **Table 2: Macro Precision Test Results for Red Wine**
 
-As seen in Tables 1 and 2 as well as Figure 5, regression models perform better on the red wine test set than classification models. Although the macro precision of SVR is close to the classifiers' scories, linear regression is the highest-scoring model by far. This suggests that there is more of a linear relationship between the chemical properties of red wine and its perceived quality. We also see that model-based feature selection with LinearSVR doesn't improve performance and can drastically hurt linear regression's macro precision.
+As seen in Tables 1-2 and Figures 5-6, regression models perform better on the red wine test set than classification models. Although the macro precision of SVR is close to the classifiers' scores, linear regression is the highest-scoring model by far. This suggests that there is more of a linear relationship between the chemical properties of red wine and its perceived quality. We also see that model-based feature selection with LinearSVR doesn't improve performance and can drastically hurt linear regression's macro precision.
 
 ### White Wine
 
@@ -128,10 +128,12 @@ As seen in Tables 1 and 2 as well as Figure 5, regression models perform better 
 
 **Table 4: Macro Precision Test Results for White Wine**
 
-As seen in Tables 3 and 4 as well as Figure 6, SVM models perform the best for wine quality prediction. With both SVM models scoring the highest, this also lends to the idea that there is more of a nonlinear relationship between the chemical properties of white wine and its perceived quality. Model-based feature selection with LinearSVC doesn't alter the accuracy or macro precision score versus using all features much for the white wine data, except for with SVC which is hurt by a 10% drop in macro precision.
+As seen in Tables 3-4 and Figures 7-8, SVM models perform the best for white wine quality prediction. With both SVM models scoring the highest, this also lends to the idea that there is more of a nonlinear relationship between the chemical properties of white wine and its perceived quality. Model-based feature selection with LinearSVC doesn't alter the accuracy or macro precision score versus using all features much for the white wine data, except for with SVC which is hurt by a 10% drop in macro precision.
 
 ## Conclusion
 Through our model experimentation and parameter tuning, we conclude that the RBF/Gaussian kernel is optimal for SVR while the polynomial kernel is optimal for SVC. Linear Regression performed the best for red wine quality prediction with a macro precision of approximately 0.50 while SVC performed the best for white wine quality prediction with a macro precision of approximately 0.37. As previously discussed, the results suggest that red wine has a linear relationship between chemical properties and quality while white wine has a nonlinear relationship between chemical properties and quality. Finally, model-based feature selection did not significantly help achieve better performance for any of the models we experimented with.
+
+The most significant chemical properties contributing to red wine quality appear to be alcohol (positive correlation) and volatile acidity (negative correlation). The most significant chemical properties contributing to white wine quality appear to be density (negative correlation) and residual sugar (positive correlation).
 
 ## Limitations and Future Work
 Both red and white wine datasets are relatively small in size, which hurts their generalizability. Expanding these datasets in the future would strengthen the predictive power and generalization strength of these models. Additional data would also help address the class imbalance issue in both red and white wine. The datasets we used were highly imbalanced with median quality ratings (5-6) being the most common and ratings of 0, 1, 2, and 10 not showing up at all.
